@@ -6,6 +6,9 @@
 
 }
 
-.footer{
-    margin-top: 30%;
+.footer {
+    bottom: 0;
+    position: absolute;
+    
+    
 }

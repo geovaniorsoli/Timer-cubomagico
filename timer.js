@@ -56,6 +56,12 @@ function displayTime(time) {
   cubeTimer.innerText = `${minutes}:${seconds}`;
 }
 
+document.getElementById('reset-button').addEventListener('click', () => {
+    if (!isRunning) {
+        elapsedTime = 0;
+        displayTime(0);
+    }
+});
 
 //tema escuro
 
