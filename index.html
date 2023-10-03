@@ -20,16 +20,61 @@
         </div>
         <button id="start-stop-button" class="btn btn-primary">Iniciar</button>
          <button id="reset-button" class="btn btn-danger">Reset</button>
+         
+
         <div>
            <div class="mt-3"> 
             <p>Pressione a barra de espaço para iniciar/pausar o timer:</p>
         </div>
         </div>
-    </div>
 
+      
 
-    
+        <div class="container text-center">
+            <div class="nav-flutuante mt-3 d-flex align-items-center justify-content-center m-4 p-3 rounded-2 w-50 mx-auto bg-body-secondary">
+                <button id="save-time-button" class="btn btn-success m-2">Salvar</button>
+                <button id="clear-table-button" class="btn btn-danger m-2">Limpar Tabela</button>
+                <select id="ordenar-tabela" class="form-select primary m-2 w-50">
+                    <option value="asc">Menor ao maior</option>
+                    <option value="desc">Maior ao menor</option>
+                </select>
+            </div>
+        
+        </div>
+        
+            <div class="mx-auto d-flex align-items-center justify-content-center">
+                <table id="tabela-de-tempos" class="table table-bordered table-striped table-hover w-50 bg-body-secondary p-5">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="bg-body-secondary">ID</th>
+                            <th class="bg-body-secondary">Tempo Salvo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        
+                    </tbody>
+                </table>
+            </div>
+        
+            <div class="modal fade" id="confirmClearModal" tabindex="-1" aria-labelledby="confirmClearModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmClearModalLabel">Limpar Tabela</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Tem certeza de que deseja limpar a tabela? Isso apagará todos os dados.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button id="confirmClearButton" type="button" class="btn btn-danger">Limpar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            
     <div class="container fixed-bottom">
         <footer class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
