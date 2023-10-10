@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>TIMER</title>
     <link rel="stylesheet" href="./timer.css">
     <link rel="icon" href="./img/icon.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+vc+k2w01t9pWc7l+ks5nVdVBz5ONXCF2tvF5i5fn5jBKb0" crossorigin="anonymous">
 </head>
 <body data-bs-theme="dark">
@@ -16,10 +18,10 @@
         <h1>Contador de Cubo Mágico</h1>
 
         <div class="container timer d-flex justify-content-center align-items-center p-5 bg-body-secondary w-50 mt-3 mb-3">
-            <div id="cube-timer">0.00</div>
+            <div id="cube-timer">--</div>
         </div>
-        <button id="start-stop-button" class="btn btn-primary">Iniciar</button>
-         <button id="reset-button" class="btn btn-danger">Reset</button>
+        <button id="start-stop-button" class="btn btn-success"><i class="fas fa-play"></i></button>
+         <button id="reset-button" class="btn btn-danger"><i class="fas fa-redo"></i></button>
          
 
         <div>
@@ -29,11 +31,10 @@
         </div>
 
       
-
         <div class="container text-center">
             <div class="nav-flutuante mt-3 d-flex align-items-center justify-content-center m-4 p-3 rounded-2 w-50 mx-auto bg-body-secondary">
-                <button id="save-time-button" class="btn btn-success m-2">Salvar</button>
-                <button id="clear-table-button" class="btn btn-danger m-2">Limpar Tabela</button>
+                <button id="save-time-button" class="btn btn-success"><i class="fas fa-save"></i></button>
+                <button id="clear-table-button" class="btn btn-danger m-1"> <i class="fas fa-trash-alt"></i></button>
                 <select id="ordenar-tabela" class="form-select primary m-2 w-50">
                     <option value="asc">Menor ao maior</option>
                     <option value="desc">Maior ao menor</option>
@@ -79,12 +80,18 @@
         <footer class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
                 <a class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none">
-                    <h4>Veja o repositório no <a href="https://github.com/geovaniorsoli/Timer-cubomagico" target="_blank">GitHub</a></h4>
-                </a>
+                  
+                  
+           
+                    <a href="https://github.com/geovaniorsoli/Timer-cubomagico" target="_blank">
+                        <i class="fab fa-github fa-2x" style="color: white;"></i>
+                    </a>
+                    
+                
             </div>
             
             <div>
-                <button class="btn btn-outline-secondary" onclick="myFunction()">Alternar Tema</button>
+                <button class="btn btn-outline-secondary" onclick="toggleTheme()">Alternar Tema</button>
             </div>
         </footer>
     </div>
