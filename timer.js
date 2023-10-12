@@ -21,21 +21,23 @@ saveTimeButton.addEventListener('click', saveTime);
 
 //trocar a cor do botao ao rodar o timer
 function toggleTimer() {
-  if (!isTimerRunning) {
-      startTime = Date.now() - elapsedTime;
-      intervalId = setInterval(updateTimerDisplay, 10);
-      isTimerRunning = true;
-      startStopButton.innerHTML = '<i class="fas fa-pause"></i>';
-      startStopButton.classList.remove('btn-success'); 
-      startStopButton.classList.add('btn-outline-warning');
-  } else {
-      clearInterval(intervalId);
-      isTimerRunning = false;
-      startStopButton.innerHTML = '<i class="fas fa-play"></i>';
-      startStopButton.classList.remove('btn-outline-warning');   
-      startStopButton.classList.add('btn-success');    
+    if (!isTimerRunning) {
+        notificacao("Cronômetro iniciado!");
+        startTime = Date.now() - elapsedTime;
+        intervalId = setInterval(updateTimerDisplay, 10);
+        isTimerRunning = true;
+        startStopButton.innerHTML = '<i class="fas fa-pause"></i>';
+        startStopButton.classList.remove('btn-success'); 
+        startStopButton.classList.add('btn-outline-warning');
+    } else {
+        notificacao("Cronômetro pausado");
+        clearInterval(intervalId);
+        isTimerRunning = false;
+        startStopButton.innerHTML = '<i class="fas fa-play"></i>';
+        startStopButton.classList.remove('btn-outline-warning');   
+        startStopButton.classList.add('btn-success');    
+    }
   }
-}
 
 function updateTimerDisplay() {
     elapsedTime = Date.now() - startTime;
@@ -53,6 +55,7 @@ document.getElementById('reset-button').addEventListener('click', () => {
     if (!isTimerRunning) {
         elapsedTime = 0;
         displayTime(0);
+        notificacao("Cronômetro reiniciado!");
     }
 });
 
@@ -63,7 +66,10 @@ function saveTime() {
     localStorage.setItem('savedTimes', JSON.stringify(savedTimes));
     updateSavedTimesTable(savedTimes);
     tituloTabela.innerText = `Tempo Salvo: ${formatarTempo(elapsedTime)}`;
+    notificacao("Tempo salvo!");
+    console.log("oi");
 }
+
 
 function updateSavedTimesTable(tempos) {
     const tbody = tabelaDeTempos.querySelector('tbody');
@@ -75,6 +81,7 @@ function updateSavedTimesTable(tempos) {
             <td>${formatarTempo(tempo)}</td>
         `;
         tbody.appendChild(novaLinha);
+        
     });
 }
 
@@ -92,10 +99,11 @@ document.getElementById('clear-table-button').addEventListener('click', () => {
       localStorage.removeItem('savedTimes');
       confirmClearModal.hide();
       updateSavedTimesTable([]);
+      notificacao("Tabela limpa!");
   });
 });
 
-
+//ordenar tabela
 function mergeSort(array) {
   if (array.length <= 1) {
       return array;
@@ -127,18 +135,35 @@ function merge(left, right) {
 }
 
 const ordenarSelect = document.getElementById('ordenar-tabela');
-
 ordenarSelect.addEventListener('change', () => {
-  let savedTimes = JSON.parse(localStorage.getItem('savedTimes')) || [];
-  if (ordenarSelect.value === 'asc') {
-      savedTimes = mergeSort(savedTimes);
-  } else if (ordenarSelect.value === 'desc') {
-      savedTimes = mergeSort(savedTimes).reverse();
-  }
-  updateSavedTimesTable(savedTimes);
-});
-
+    let savedTimes = JSON.parse(localStorage.getItem('savedTimes')) || [];
+    if (ordenarSelect.value === 'asc') {
+        savedTimes = mergeSort(savedTimes);
+        notificacao("Tabela ordenada em ordem crescente!");
+    } else if (ordenarSelect.value === 'desc') {
+        savedTimes = mergeSort(savedTimes).reverse();
+        notificacao("Tabela ordenada em ordem decrescente!");
+    }
+    updateSavedTimesTable(savedTimes);
+  });
 updateSavedTimesTable(JSON.parse(localStorage.getItem('savedTimes')) || []);
+
+//notificações 
+
+function notificacao(mensagem) {
+    const notificacaoElement = document.getElementById('alerta');
+    const notificacao = new bootstrap.Toast(notificacaoElement);
+    notificacaoElement.querySelector('.toast-body').textContent = mensagem;
+
+    let remainingTime = 20; 
+    const timeInterval = 20;  
+
+        if (remainingTime <= 0) {
+            clearInterval(intervalId);
+            notificacao.hide();
+        }
+    notificacao.show();
+}
 
 
 //tema
