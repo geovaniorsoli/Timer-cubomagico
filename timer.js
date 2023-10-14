@@ -70,20 +70,106 @@ function saveTime() {
     console.log("oi");
 }
 
+//paginação 
+const ITEMS_PER_PAGE = 5; 
+let currentPage = 1; 
+function renderPagination(totalItems) {
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    const paginationElement = document.getElementById('pagination');
+    paginationElement.innerHTML = '';
+
+    // anterior
+    const prevLi = document.createElement('li');
+    prevLi.classList.add('page-item');
+    if (currentPage === 1) prevLi.classList.add('disabled');
+
+    const prevA = document.createElement('a');
+    prevA.classList.add('page-link');
+    prevA.href = '#';
+    prevA.innerHTML = '<i class="fas fa-arrow-left"></i>';
+    prevA.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            updateSavedTimesTable(JSON.parse(localStorage.getItem('savedTimes')) || []);
+        }
+    });
+
+    prevLi.appendChild(prevA);
+    paginationElement.appendChild(prevLi);
+
+    // total
+    for (let i = 1; i <= totalPages; i++) {
+        const li = document.createElement('li');
+        li.classList.add('page-item');
+        if (i === currentPage) li.classList.add('active');
+
+        const a = document.createElement('a');
+        a.classList.add('page-link');
+        a.href = '#';
+        a.textContent = i;
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            currentPage = i;
+            updateSavedTimesTable(JSON.parse(localStorage.getItem('savedTimes')) || []);
+        });
+
+        li.appendChild(a);
+        paginationElement.appendChild(li);
+    }
+
+    // prox
+    const nextLi = document.createElement('li');
+    nextLi.classList.add('page-item');
+    if (currentPage === totalPages) nextLi.classList.add('disabled');
+
+    const nextA = document.createElement('a');
+    nextA.classList.add('page-link');
+    nextA.href = '#';
+    nextA.innerHTML = '<i class="fas fa-arrow-right"></i>';
+    nextA.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+            currentPage++;
+            updateSavedTimesTable(JSON.parse(localStorage.getItem('savedTimes')) || []);
+        }
+    });
+
+    nextLi.appendChild(nextA);
+    paginationElement.appendChild(nextLi);
+}
+
 
 function updateSavedTimesTable(tempos) {
     const tbody = tabelaDeTempos.querySelector('tbody');
     tbody.innerHTML = '';
-    tempos.forEach((tempo, indice) => {
+
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    const temposToDisplay = tempos.slice(start, end);
+
+    temposToDisplay.forEach((tempo, indice) => {
         const novaLinha = document.createElement('tr');
         novaLinha.innerHTML = `
-            <td>${indice + 1}</td>
+            <td>${indice + 1 + start}</td>
             <td>${formatarTempo(tempo)}</td>
+            <td><button class="btn btn-outline-danger btn-sm" onclick="deleteTime(${indice + start})"><i class="fas fa-times"></i></button></td>
         `;
         tbody.appendChild(novaLinha);
-        
     });
+
+    renderPagination(tempos.length);
 }
+//deletar tempo tabela
+
+function deleteTime(index) {
+    let savedTimes = JSON.parse(localStorage.getItem('savedTimes')) || [];
+    savedTimes.splice(index, 1);
+    localStorage.setItem('savedTimes', JSON.stringify(savedTimes));
+    updateSavedTimesTable(savedTimes);
+    notificacao("Tempo deletado!");
+}
+
 
 function formatarTempo(tempo) {
     const minutes = Math.floor(tempo / 60000);

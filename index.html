@@ -42,9 +42,9 @@
             </div>
         
         </div>
-        
+
             <div class="mx-auto d-flex align-items-center justify-content-center">
-                <table id="tabela-de-tempos" class="table table-bordered table-striped table-hover w-50 bg-body-secondary p-5">
+                <table id="tabela-de-tempos" class="table table-bordered table-striped table-hover w-50 bg-body-secondary p-5 rounded">
                     <thead class="thead-light">
                         <tr>
                             <th class="bg-body-secondary">ID</th>
@@ -52,11 +52,16 @@
                         </tr>
                     </thead>
                     <tbody>
-        
                     </tbody>
                 </table>
             </div>
-        
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination d-flex justify-content-center " id="pagination">
+                </ul>
+              </nav>
+              
+      
             <div class="modal fade" id="confirmClearModal" tabindex="-1" aria-labelledby="confirmClearModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -75,33 +80,29 @@
                 </div>
             </div>
 
-            <div id="alerta" class="alert alert-success alert-dismissible fade position-fixed bottom-0 end-0 m-3" role="alert">
+            <div id="alerta" class="alert alert-success alert-dismissible fade position-fixed end-0 top-0 m-3" role="alert">
                 <span class="toast-body">Mensagem padrão</span>
+            </div>
+            
 
-              </div>
-              
-              
-              
+              <div class="position-fixed bottom-0 end-0 p-3" id="floating-buttons">
+                <a href="https://github.com/geovaniorsoli/Timer-cubomagico" target="_blank" class="d-block mb-2">
+                    <button class="btn btn-outline-secondary">
+                        <i class="fab fa-github"></i>
+                    </button>
+                </a>
+                <button class="btn btn-outline-secondary d-block" onclick="toggleTheme()">
+                    <i class="fas fa-adjust"></i>
+                </button>
+            </div>
+            
+            
+            
+            
               
             
-    <div class="container fixed-bottom">
-        <footer class="d-flex flex-wrap justify-content-center align-items-center py-3 my-4 border-top">
-            <div class="col-md-4 d-flex align-items-center">
-                <a class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none">
-                  
-                  
+  
            
-                    <a href="https://github.com/geovaniorsoli/Timer-cubomagico" target="_blank">
-                        <i class="fab fa-github fa-2x" style="color: white;"></i>
-                    </a>
-                    
-                
-            </div>
-            
-            <div>
-                <button class="btn btn-outline-secondary" onclick="toggleTheme()">Alternar Tema</button>
-            </div>
-        </footer>
     </div>
 
     <script src="./timer.js"></script>

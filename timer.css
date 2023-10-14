@@ -11,3 +11,14 @@
     position: absolute;
 
 }
+
+
+.sidebar{
+    width: 60px;
+    height: 100vh; 
+    cursor: pointer;
+}
+
+
+
+
